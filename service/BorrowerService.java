@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.gcit.lms.dao.BookCopiesDAO;
 import com.gcit.lms.dao.BookDAO;
@@ -29,7 +30,7 @@ import com.gcit.lms.entity.Branch;
  * @author tejassrinivas
  *
  */
-@Transactional
+@RestController
 public class BorrowerService {
 	
 	@Autowired
@@ -47,7 +48,7 @@ public class BorrowerService {
 	@Autowired
 	BorrowerDAO brwDao;
 	
-	@RequestMapping(value = "/borrowerValidation", method = RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value = "/brborrowerValidation", method = RequestMethod.POST, consumes="application/json")
 	public boolean checkValidation(@RequestBody Integer cardNo) {
 		Borrower borrower = new Borrower();
 		System.out.println("Entering inside borrower card validation");	
@@ -62,7 +63,7 @@ public class BorrowerService {
 		return valFlag;
 	}
 	
-	@RequestMapping(value = "/viewAllBranches", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/brviewAllBranches", method = RequestMethod.GET, produces="application/json")
 	public List<Branch> readAllBranches()  {
 		List<Branch> branches = null;
 		try {
@@ -80,7 +81,7 @@ public class BorrowerService {
 		return branches;
 	}
 	
-	@RequestMapping(value = "/viewBooksinBranch/{branchId}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/brviewBooksinBranch/{branchId}", method = RequestMethod.GET, produces="application/json")
 	public List<Book> readAllBooksInBranch(@PathVariable Integer branchId) {
 		List<Book> books = null;
 		try {
@@ -95,7 +96,7 @@ public class BorrowerService {
 		return books;
 	}
 	
-	@RequestMapping(value = "/viewBooksFromLoans/{branchId}/{cardNo}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/brviewBooksFromLoans/{branchId}/{cardNo}", method = RequestMethod.GET, produces="application/json")
 	public List<Book> readBooksFromLoans(@PathVariable Integer branchId,@PathVariable  Integer cardNo)  {
 		Branch branch = new Branch();
 		branch.setBranchId(branchId);
@@ -110,7 +111,7 @@ public class BorrowerService {
 		return books;
 	}
 	
-	@RequestMapping(value = "/checkOutFunction/{branchId}/{cardNo}/{bookId}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/brcheckOutFunction/{branchId}/{cardNo}/{bookId}", method = RequestMethod.GET, produces="application/json")
 	public void checkOutFucntion(@PathVariable Integer cardNo,@PathVariable  Integer bookId,@PathVariable  Integer branchId) {
 		BookLoans bookLoans = new BookLoans();
 		BookCopies bookCopies = new BookCopies();
@@ -128,7 +129,7 @@ public class BorrowerService {
 		}
 	}
 	
-	@RequestMapping(value = "/countOfBookLoaned/{branchId}/{cardNo}/{bookId}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/brcountOfBookLoaned/{branchId}/{cardNo}/{bookId}", method = RequestMethod.GET, produces="application/json")
 	public Integer countOfLoanedBooksByBorrower(@PathVariable Integer bookId,@PathVariable  Integer cardNo,@PathVariable  Integer branchId)  {
 		BookLoans bookLoan = new BookLoans();
 		bookLoan.setBranchId(branchId);
@@ -143,7 +144,7 @@ public class BorrowerService {
 		return noOfCopies;
 	}
 	
-	@RequestMapping(value = "/updateLoansTable/{branchId}/{cardNo}/{bookId}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/brupdateLoansTable/{branchId}/{cardNo}/{bookId}", method = RequestMethod.GET, produces="application/json")
 	public void updateLoanTablesEnrty(Integer cardNo, Integer bookId, Integer branchId) {
 		BookLoans bookLoans = new BookLoans();
 		BookCopies bookCopies = new BookCopies(); 

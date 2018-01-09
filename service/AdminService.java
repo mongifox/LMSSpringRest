@@ -56,7 +56,7 @@ public class AdminService {
 	@Autowired
 	GenreDAO gDao;
 	
-	@RequestMapping(value = "/saveAuthor", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	@RequestMapping(value = "/adsaveAuthor", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	@Transactional
 	public void saveAuthor(@RequestBody Author author) {
 		try {
@@ -75,7 +75,7 @@ public class AdminService {
 		}
 	}
 	
-	@RequestMapping(value = "/savePublisher", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	@RequestMapping(value = "/adsavePublisher", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	@Transactional
 	public void savePublisher(@RequestBody Publisher publisher) {
 		try {
@@ -100,7 +100,7 @@ public class AdminService {
 		}
 	}
 	
-	@RequestMapping(value = "/rsaveBranch", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	@RequestMapping(value = "/adsaveBranch", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	@Transactional
 	public void saveBranch(@RequestBody Branch branch)  {
 		try {
@@ -118,7 +118,7 @@ public class AdminService {
 		}
 	}
 	
-	@RequestMapping(value = "/saveBorrower", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	@RequestMapping(value = "/adsaveBorrower", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	@Transactional
 	public void saveBorrower(@RequestBody Borrower borrower) {
 		try {
@@ -136,7 +136,7 @@ public class AdminService {
 		}
 	}
 	
-	@RequestMapping(value = "/viewAuthors/{searchString}/{pageNo}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/adviewAuthors/{searchString}/{pageNo}", method = RequestMethod.GET, produces="application/json")
 	public List<Author> readAuthors(@PathVariable String searchString, @PathVariable Integer pageNo)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		List<Author> authors = new ArrayList<>();
@@ -148,7 +148,7 @@ public class AdminService {
 		return authors;
 	}
 	
-	@RequestMapping(value = "/viewAllAuthors", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/adviewAllAuthors", method = RequestMethod.GET, produces="application/json")
 	public List<Author> readAuthors() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 			List<Author> authors = aDao.readAllAuthors();
 			for(Author a: authors){
@@ -167,7 +167,7 @@ public class AdminService {
 		return authorCount;
 	}
 	
-	@RequestMapping(value = "/viewBooks/{searchString}/{pageNo}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/adviewBooks/{searchString}/{pageNo}", method = RequestMethod.GET, produces="application/json")
 	public List<Book> readBooks(@PathVariable Integer pageNo, @PathVariable  String searchString) {
 		List<Book> books = null;
 		try {
@@ -200,7 +200,7 @@ public class AdminService {
 		return bookCount;
 	}
 	
-	@RequestMapping(value = "/viewAllPublishers", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/adviewAllPublishers", method = RequestMethod.GET, produces="application/json")
 	public List<Publisher> readPublishers() {
 		List<Publisher> publishers = null;
 		try {
@@ -216,7 +216,7 @@ public class AdminService {
 		return publishers;
 	}
 	
-	@RequestMapping(value = "/viewAllBorrowers", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/adviewAllBorrowers", method = RequestMethod.GET, produces="application/json")
 	public List<Borrower> readAllBorrowers() {
 		List<Borrower> borrowers = null;
 		try {
@@ -228,7 +228,7 @@ public class AdminService {
 		
 	}
 	
-	@RequestMapping(value = "/readLoans", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/adreadLoans", method = RequestMethod.GET, produces="application/json")
 	public List<BookLoans> readLoans() {
 		List<BookLoans> bookLoans = null;
 		try {
@@ -289,7 +289,7 @@ public class AdminService {
 		return borrower;
 	}
 	
-	@RequestMapping(value = "/viewAllBranches", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/adviewAllBranches", method = RequestMethod.GET, produces="application/json")
 	public List<Branch> readBranches()  {
 		List<Branch> branches = null;
 		try {
@@ -309,7 +309,7 @@ public class AdminService {
 		return branches;
 	}
 	
-	@RequestMapping(value = "/viewAllBooks", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/adviewAllBooks", method = RequestMethod.GET, produces="application/json")
 	public List<Book> readBooks() {
 		System.out.println("Entering inside read books service module");
 		List<Book> books = null;
@@ -328,7 +328,7 @@ public class AdminService {
 		return books;
 	}
 	
-	@RequestMapping(value = "/deleteAuthor", method = RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value = "/addeleteAuthor", method = RequestMethod.POST, consumes="application/json")
 	public void deleteAuthor(@RequestBody Integer authorId)  {
 		// delete author in Author Table
 		Author author = new Author();
@@ -340,7 +340,7 @@ public class AdminService {
 		}//No need to delete in book author table	
 	}
 	
-	@RequestMapping(value = "/deleteBook", method = RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value = "/addeleteBook", method = RequestMethod.POST, consumes="application/json")
 	public void deleteBook(@RequestBody Integer bookId) {
 			// delete book in Book Table
 		Book book = new Book();
@@ -353,7 +353,7 @@ public class AdminService {
 			}
 	}
 	
-	@RequestMapping(value = "/deletePublisher", method = RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value = "/addeletePublisher", method = RequestMethod.POST, consumes="application/json")
 	public void deletePublisher(@RequestBody Integer publisherId) {
 		// delete Publisher in Publisher Table
 		Publisher publisher = new Publisher();
@@ -365,7 +365,7 @@ public class AdminService {
 		}
 	}
 	
-	@RequestMapping(value = "/deleteBranch", method = RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value = "/addeleteBranch", method = RequestMethod.POST, consumes="application/json")
 	public void deleteBranch(@RequestBody Integer branchId) {
 		// delete Branch in Branch Table
 		Branch branch = new Branch();
@@ -377,7 +377,7 @@ public class AdminService {
 		}
 	}
 	
-	@RequestMapping(value = "/deleteBorrower", method = RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value = "/addeleteBorrower", method = RequestMethod.POST, consumes="application/json")
 	public void deleteBorrower(@RequestBody Integer cardNo) {
 		Borrower borrower = new Borrower();
 		borrower.setCardNo(cardNo);
@@ -388,8 +388,8 @@ public class AdminService {
 		}
 	}
 	
-	@RequestMapping(value = "/overRideDueDate", method = RequestMethod.POST, consumes="application/json")
-	public void overRideDueDate(@RequestBody Integer bookId,@RequestBody  Integer branchId,@RequestBody  Integer cardNo,@RequestBody  Date duedate) {
+	@RequestMapping(value = "/adoverRideDueDate/{bookId}/{branchId}/{cardNo}/{duedate}", method = RequestMethod.GET, produces="application/json")
+	public void overRideDueDate(@PathVariable  Integer bookId,@PathVariable   Integer branchId,@PathVariable   Integer cardNo,@PathVariable   String duedate) {
 		System.out.println("Inside admin service: " + bookId + "--" + branchId + "--" + cardNo + "--" +duedate);
 		try {
 			blDao.updateBookLoanDueDate(bookId, branchId, cardNo, duedate);
@@ -398,7 +398,7 @@ public class AdminService {
 		}
 	}
 
-	@RequestMapping(value = "/saveBook", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	@RequestMapping(value = "/adsaveBook", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	public void saveBook(@RequestBody Book book) {
 		try {
 			if (book.getBookId() != null) {

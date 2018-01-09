@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.gcit.lms.dao.BookCopiesDAO;
 import com.gcit.lms.dao.BookDAO;
@@ -24,7 +25,7 @@ import com.gcit.lms.entity.Branch;
  * @author tejassrinivas
  *
  */
-
+@RestController
 public class LibrarianService {
 		
 	@Autowired
@@ -36,7 +37,7 @@ public class LibrarianService {
 	@Autowired
 	BookCopiesDAO bcDao;
 	
-	@RequestMapping(value = "/viewAllBranches", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/lbviewAllBranches", method = RequestMethod.GET, produces="application/json")
 	public List<Branch> readBranches() {
 		System.out.println("Entering here inside admin br");
 		List<Branch> branches = null;
@@ -59,10 +60,11 @@ public class LibrarianService {
 		return branch;
 	}
 	
-	@RequestMapping(value = "/viewBooksByBranch", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	@RequestMapping(value = "/lbviewBooksByBranch", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	public List<Book> readBooksByBranch(@RequestBody Branch branch)  {
 		List<Book> books = null;
 		try {
+			System.out.println("heeeehhheeehhhheeehhhe");
 			books = bDao.readBooksByBranches(branch);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -70,7 +72,7 @@ public class LibrarianService {
 		return books;
 	}
 	
-	@RequestMapping(value = "/viewBookCountInBranch/{branchId}/{bookId}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/lbviewBookCountInBranch/{branchId}/{bookId}", method = RequestMethod.GET, produces="application/json")
 	public Integer readBookCountInBranch(@PathVariable Integer branchId,@PathVariable  Integer bookId) {
 		System.out.println("Entering here Book Count In branch Once : " + branchId +" book : " + bookId);
 		BookCopies bookCopies = bcDao.readBookCopiesByBothIds(branchId, bookId);
@@ -85,9 +87,9 @@ public class LibrarianService {
 		return noOfCopies;
 	}
 	
-	@RequestMapping(value = "/saveBookCopies", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	@RequestMapping(value = "/lbsaveBookCopies/{noOfCopies}/{bookId}/{branchId}", method = RequestMethod.GET,produces="application/json")
 	@Transactional
-	public void saveBookCopies(@RequestBody Integer noOfCopies,@RequestBody Integer bookId,@RequestBody  Integer branchId) {
+	public void saveBookCopies(@PathVariable  Integer noOfCopies,@PathVariable  Integer bookId,@PathVariable   Integer branchId) {
 		System.out.println("Entering save copies in librarian service");
 		BookCopies bookCopies = new BookCopies();
 		bookCopies.setNoOfCopies(noOfCopies);
@@ -102,8 +104,8 @@ public class LibrarianService {
 		}
 	}
 	
-	@RequestMapping(value = "/updateBranch", method = RequestMethod.POST, consumes="application/json", produces="application/json")
-	public void updateBranch(@RequestBody String branchName,@RequestBody  String branchAddress,@RequestBody  Integer branchId) {
+	@RequestMapping(value = "/lbupdateBranch/{branchName}/{branchAddress}/{branchId}", method = RequestMethod.GET,produces="application/json")
+	public void updateBranch(@PathVariable  String branchName,@PathVariable   String branchAddress,@PathVariable   Integer branchId) {
 		Branch branch = new Branch();
 		branch.setBranchName(branchName);
 		branch.setBranchAddress(branchAddress);
